@@ -1,20 +1,20 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+import functions
+from pandas import Series
 
 
-with open('data.txt', 'r') as fin:
-    data = fin.read().splitlines(True)
-with open('data2.txt', 'w') as fout:
-    fout.writelines(data[1:])
+ts = Series.from_csv('data.csv', header=None)
+ts.plot()
 
-data = pd.read_csv('data2.txt', sep=" ", header=None)
-data.columns = ['month', 'nan', 'count']
-data = data.drop(['nan'], axis=1)
-data = data.set_index('month')
-print(data.head())
-plt.plot(data['count'])
-plt.savefig('traffic.png')
+new_index = pd.date_range('2013-01','2017-12', freq='MS').strftime("%Y-%m").tolist()
+ts.index = new_index
+
+test = pd.Grouper(ts.values)
+
+# groups = ts.groupby(test)
+functions.test_stationarity(ts)
 
 def return_output():
     output = ''

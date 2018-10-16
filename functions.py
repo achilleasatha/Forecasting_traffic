@@ -14,7 +14,7 @@ def test_stationarity(timeseries):
     std = plt.plot(rolstd, color='black', label='Rolling Std')
     plt.legend(loc='best')
     plt.title('Rolling Mean & Standard Deviation')
-    plt.show()
+    # plt.show()
     plt.savefig('rolling.png')
 
     # Perform Dickey-Fuller test:
